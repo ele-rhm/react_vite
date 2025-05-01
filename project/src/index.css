@@ -3,18 +3,235 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
+:root {
+  --background-color: #111827;
+  --text-color: #ffffff;
+}
+
+/* Base layout and reset */
+html, body, #root {
+  height: 100vh;
+  width: 100%;
   margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: var(--background-color);
+  color: var(--text-color);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  @apply bg-gray-50;
+  box-sizing: border-box;
 }
 
 #root {
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
+}
+
+/* Standardized layout containers */
+header {
+  flex-shrink: 0;
+  z-index: 10;
+  background-color: #111827;
+}
+
+main {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}
+
+footer {
+  flex-shrink: 0;
+  z-index: 10;
+  background-color: #111827;
+}
+
+/* Scene styles */
+.scene-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Chart containers */
+.chart-container {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Responsive visibility classes */
+@media (max-width: 640px) {
+  .hide-on-mobile {
+    display: none !important;
+  }
+}
+
+/* Proper aspect ratio maintenance */
+.aspect-container {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* 16:9 ratio */
+}
+
+.aspect-container > * {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Chart and SVG sizing fixes */
+svg {
+  display: block;
+  overflow: visible;
+}
+
+.recharts-wrapper {
+  margin: 0 auto;
+}
+
+/* Fix for Safari issues */
+.safari-fix {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #2d3748;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #4a5568;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #718096;
+}
+
+/* Fix for D3 visualizations */
+.d3-chart text {
+  fill: white;
+  font-size: 10px;
+}
+
+.d3-chart path,
+.d3-chart line {
+  stroke-width: 1;
+}
+
+.d3-chart line.link {
+  stroke-opacity: 0.5;
+}
+
+/* Consistent padding and spacing */
+.p-scene {
+  padding: 0.75rem;
+}
+
+.gap-scene {
+  gap: 0.75rem;
+}
+
+/* Scene-specific adjustments */
+.agent-card {
+  height: 100%;
+  overflow-y: auto;
+}
+
+.chart-panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.chart-panel-header {
+  flex-shrink: 0;
+}
+
+.chart-panel-body {
+  flex: 1;
+  min-height: 0;
+  position: relative;
+}
+
+/* Responsive chart sizing */
+@media (max-width: 768px) {
+  .md-chart-height {
+    height: 200px;
+  }
+}
+
+/* Agent styling */
+.agent-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 0.5rem;
+}
+
+/* Policy panel */
+.policy-panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.policy-list {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.policy-item {
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.policy-item:hover {
+  background-color: rgba(66, 153, 225, 0.1);
+}
+
+.policy-item.active {
+  background-color: rgba(66, 153, 225, 0.2);
+}
+
+/* Typography resets */
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 0;
+}
+
+/* SVG viewbox fixes */
+.svg-container svg {
+  width: 100% !important;
+  height: 100% !important;
+  max-height: 100% !important;
+}
+
+/* Network visualization fixes */
+.node-circle {
+  cursor: pointer;
+  transition: r 0.2s ease;
+}
+
+.node-circle:hover {
+  r: 8;
+}
+
+.link-line {
+  stroke: #4a5568;
+  stroke-opacity: 0.6;
+  stroke-width: 1;
 }
